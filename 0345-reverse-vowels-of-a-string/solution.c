@@ -1,7 +1,7 @@
 char* reverseVowels(char* s) {
     
     int n=strlen(s);
-    char a[n];
+    char a[n]; 
     int c=0;
     for(int i=n-1;i>=0;i--)
     {
