@@ -17,26 +17,22 @@ class Solution {
         if(list2==null){
             return list1;
         }
-        if(list1.val>list2.val)
-        {
-            ListNode temp=list1;
-            list1=list2;
-            list2=temp;
-        }
-        ListNode res=list1;
+        ListNode dummy= new ListNode(0);
+        ListNode cur=dummy;
         while(list1!=null && list2!=null)
         {
-            ListNode temp=null;
-            while(list1!=null && list1.val<=list2.val)
+            if(list1.val<list2.val)
             {
-                temp=list1;
+                cur.next=list1;
                 list1=list1.next;
             }
-            temp.next=list2;
-            ListNode temp1=list1;
-            list1=list2;
-            list2=temp1;
+            else{
+                cur.next=list2;
+                list2=list2.next;
+            }
+            cur=cur.next;
         }
-        return res;
+        cur.next=(list1!=null)?list1:list2;
+        return dummy.next;
     }
 }
