@@ -27,13 +27,10 @@ class Solution {
     {
         if(s1.length()!=s2.length())return false;
         int[] arr=new int[26];
-        for(char c:s1.toCharArray())
+        for(int i=0;i<s1.length();i++)
         {
-            arr[c-'a']++;
-        }
-        for(char c:s2.toCharArray())
-        {
-            arr[c-'a']--;
+            arr[s1.charAt(i)-'a']++;
+            arr[s2.charAt(i)-'a']--;
         }
         for(int i:arr)
         {
