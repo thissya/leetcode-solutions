@@ -1,0 +1,15 @@
+class Solution {
+    public boolean isCircularSentence(String sentence) {
+        int f=0;
+        String[] arr= sentence.split("\\s");
+        for(int i=0;i<arr.length-1;i++){
+            if(arr[i].charAt(arr[i].length()-1) != arr[i+1].charAt(0)){
+                return false;
+            }
+        }
+        if(arr[0].charAt(0) != arr[arr.length-1].charAt(arr[arr.length-1].length()-1) ){
+            return false;
+        }
+        return true;
+    }
+}
