@@ -10,28 +10,31 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        int n =lists.length;
-        ArrayList<Integer> ans= new ArrayList<>();
-        for(int i=0;i<n;i++)
-        {
-            ListNode itr= lists[i];
-            while(itr!=null)
-            {
-                ans.add(itr.val);
-                itr=itr.next;
+        PriorityQueue<Integer> heap = new PriorityQueue<>();//min heap
+        //(a,b)->Integer.compare(b,a) max heap
+        for(int i=0;i<lists.length;i++){
+            ListNode cur=lists[i];
+            while(cur!=null){
+                heap.add(cur.val);
+                cur=cur.next;
             }
         }
-        Collections.sort(ans);
-        if(n==0 || ans.size()==0)return null;
-        ListNode head= new ListNode(ans.get(0));
-        ListNode ptr=head;
-        for(int i=1;i<ans.size();i++)
-        {
-            ListNode a= new ListNode(ans.get(i));
-            ptr.next=a;
-            ptr=a;
+
+        if(heap.isEmpty()){
+            return null;
         }
-        ptr.next=null;
+        
+        ListNode head=null;
+        ListNode cur=null;
+        while(!heap.isEmpty()){
+            if(head == null){
+                head= new ListNode(heap.poll());
+                cur=head;
+            }else{
+                cur.next = new ListNode(heap.poll());
+                cur=cur.next;
+            }
+        }
         return head;
     }
 }
