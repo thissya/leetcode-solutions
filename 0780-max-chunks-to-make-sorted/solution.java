@@ -1,14 +1,10 @@
-class Solution 
-{
-    public int maxChunksToSorted(int[] arr) 
-    {
-        int max=0,c=0;
-        for(int i=0;i<arr.length;i++)
-        {
-            max=Math.max(max,arr[i]);
-            if(i==max)
-                c++;
-        }        
+class Solution {
+    public int maxChunksToSorted(int[] arr) {
+        int c=0,max=0;
+        for(int i=0;i<arr.length;i++){
+            max=Math.max(arr[i],max);
+            if(i==max)c++;
+        }  
         return c;
     }
 }
