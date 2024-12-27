@@ -1,24 +1,21 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* productExceptSelf(int* nums, int numsSize, int* returnSize) 
-{
-    int left[numsSize];
-    int right[numsSize];
+int* productExceptSelf(int* nums, int n, int* returnSize) {
+    int left[n];
     left[0]=1;
-    right[numsSize-1]=1;
-    for(int i=1;i<numsSize;i++)
-    {
+    for(int i=1;i<n;i++){
         left[i]=left[i-1]*nums[i-1];
-    }    
-    for(int i=numsSize-2;i>=0;i--)
-    {
+    }
+    int right[n];
+    right[n-1]=1;
+    for(int i=n-2;i>=0;i--){
         right[i]=right[i+1]*nums[i+1];
     }
-    for(int i=0;i<numsSize;i++)
-    {
-        nums[i]=left[i]*right[i];
+    int *ans=(int *)malloc(sizeof(int )*n);
+    for(int i=0;i<n;i++){
+        ans[i]=left[i]*right[i];
     }
-    *returnSize=numsSize;
-    return nums;
+    *returnSize = n;
+    return ans;
 }
