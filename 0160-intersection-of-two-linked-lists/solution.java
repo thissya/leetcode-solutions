@@ -11,31 +11,19 @@
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        int ac=0;
-        int bc=0;
-        ListNode a= headA;
-        ListNode b= headB;
-        while(a!=null){
-            ac++;
-            a=a.next;
-        }    
-        while(b!=null){
-            bc++;
-            b=b.next;
+        List<ListNode> arr= new ArrayList<>();
+        ListNode temp=headA;
+        while(temp!=null){
+            arr.add(temp);
+            temp=temp.next;
         }
-
-        while(ac>bc){
-            ac--;
-            headA=headA.next;
+        temp=headB;
+        while(temp!=null){
+            if(arr.contains(temp)){
+                return temp;
+            }
+            temp=temp.next;
         }
-        while(bc>ac){
-            bc--;
-            headB=headB.next;
-        }
-        while(headA!=headB){
-            headA=headA.next;
-            headB=headB.next;
-        }
-        return headA;
+        return null;
     }
 }
