@@ -5,34 +5,24 @@
  *     struct ListNode *next;
  * };
  */
-struct ListNode* removeNthFromEnd(struct ListNode* head, int n) 
-{
-    if(head->next==NULL||head==NULL)
-    {
-        return NULL;
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
+    struct ListNode* temp=head;
+    int c=0;
+    if(head->next == NULL && n==1)return NULL;
+    while(temp!=NULL){
+        c++;
+        temp=temp->next;
     }
-    struct ListNode *dummy=(struct ListNode *)malloc(sizeof(struct ListNode));
-    dummy->next=head;
-    struct ListNode *first,*sec;
-    first=dummy;
-    sec=dummy;
-
-    for(int i=0;i<=n;i++)
-    {
-        if(first==NULL)
-        {
-            free(dummy);
-            return head;
-        }
-        first=first->next;
+    int len=c-n;
+    int i=0;
+    temp=head;
+    if(len==0){
+        return head->next;
     }
-    while(first!=NULL)
-    {
-        first=first->next;
-        sec=sec->next;
+    while(i<len-1){
+        temp=temp->next;
+        i++;
     }
-    sec->next=sec->next->next;
-    struct ListNode *new=dummy->next;
-    free(dummy);
-    return new;
+    temp->next=temp->next ? temp->next->next:NULL;
+    return head;
 }
