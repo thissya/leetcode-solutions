@@ -1,27 +1,29 @@
 class Solution {
-    public int myAtoi(String s) 
-    {
-        int i=0,n=0,sign=1;
-        while(i < s.length() && s.charAt(i) == ' ' )
-        {
+    public int myAtoi(String s) {
+        s=s.trim();
+        int i=0;
+        int n=s.length();
+        while(i<n && s.charAt(i)==' '){
             i++;
         }
-        if(i < s.length() && (s.charAt(i)=='-' || s.charAt(i)=='+'))
-        {
-            if(s.charAt(i)=='-'){
-                sign=-1;}
+        int sign=1;
+        if(i<n && s.charAt(i)=='-'){
             i++;
+            sign=-1;
         }
-        while(i <s.length() && s.charAt(i)>='0' && s.charAt(i)<='9' )
-        {
-            int rem=s.charAt(i)-'0';
-            if(n>((Integer.MAX_VALUE-rem)/10))
-            {
-                return sign==1?Integer.MAX_VALUE:Integer.MIN_VALUE;
+        else if(i<n && s.charAt(i)=='+'){
+            i++;
+            sign=1;
+        }
+        int sum=0;
+        while(i<n && s.charAt(i)>='0' && s.charAt(i)<='9'){
+            int val=s.charAt(i)-'0';
+            if(sum > (Integer.MAX_VALUE-val)/10){
+                return sign==1?Integer.MAX_VALUE:Integer.MIN_VALUE; 
             }
-            n=n*10+rem;
+            sum=sum*10 +val;
             i++;
         }
-        return n*sign;
+        return sum*sign;
     }
 }
