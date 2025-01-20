@@ -1,35 +1,27 @@
 bool isValid(char* s) {
-    char stack[100000];
-    int n=strlen(s);
+    char stack[10000];
     int top=-1;
-    for(int i=0;i<n;i++)
-    {
-        char a=s[i];
-        if(a=='(' || a=='[' || a=='{')
-        {
-            stack[++top]=a;
-        }
-        else{
-            if(top==-1)
-            {
-                return false;
+    int n=strlen(s);
+    for(int i=0;i<n;i++){
+        if(s[i]=='{' || s[i]=='(' || s[i]=='['){
+            top++;
+            stack[top]=s[i];
+        }else if(top==-1){
+            return 0;
+        }else if(s[i]=='}' || s[i]==')' ||s[i]==']'){
+            if(s[i]=='}' && stack[top]=='{'){
+                top--;
+            }else if(s[i]==')' && stack[top]=='('){
+                top--;
+            }else if(s[i]==']' && stack[top]=='['){
+                top--;
+            }else{
+                return 0;
             }
-            char b=stack[top--];
-            if(a==')' && b!='(')
-            {
-                return false;
-            }
-            
-            if(a==']' && b!='[')
-            {
-                return false;
-            }
-            
-            if(a=='}' && b!='{')
-            {
-                return false;
-            }   
         }
     }
-    return top==-1;
+    if(top==-1){
+        return 1;
+    }
+    return 0;
 }
