@@ -1,11 +1,9 @@
 int climbStairs(int n) {
-    int a=0,b=1,c=0,i=0;
-    while(i<n)
-    {
-        c=a+b;
-        a=b;
-        b=c;
-        i++;
+    int arr[n+1];
+    arr[0]=1;
+    arr[1]=1;
+    for(int i=2;i<=n;i++){
+        arr[i]=arr[i-2]+arr[i-1];
     }
-    return c;
+    return arr[n];
 }
