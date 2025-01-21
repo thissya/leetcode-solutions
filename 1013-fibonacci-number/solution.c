@@ -1,19 +1,18 @@
+int recur(int n,int* dp){
+    if(n==0 || n==1){
+        return n;
+    }
+    if(dp[n]!=-1){
+        return dp[n];
+    }
+    dp[n]=recur(n-1,dp)+recur(n-2,dp);
+    return dp[n];
+}
+
 int fib(int n){
-    int a=0;
-    int b=1;
-    if(n==1)
-    {
-        return 1;
+    int *dp=malloc(sizeof(int)*(n+1));
+    for (int i = 0; i <= n; i++) {
+        dp[i] = -1;
     }
-    int i=1;
-    int c=0;
-    while(i<n)
-    {
-        printf("%d ",a);
-        c=a+b;
-        a=b;
-        b=c;
-        i++;
-    }
-    return c;
+    return recur(n,dp);
 }
