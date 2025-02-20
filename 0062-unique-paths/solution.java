@@ -1,16 +1,18 @@
 class Solution {
-    public int paths(int m,int n,Map<String,Integer> map){
-         String str = m+","+n;
-        if(map.containsKey(str)){
-            return map.get(str);
-        }
-        if(n==1 && m==1)return 1;
-        else if(m==0||n==0)return 0;
-        map.put(str,paths(m,n-1,map)+paths(m-1,n,map));
-        return map.get(str);
-    }
     public int uniquePaths(int m, int n) {
-        int res=paths(m,n,new HashMap<>());
-        return res;
+        int[][] arr = new int[m+1][n+1];
+        for(int i=0;i<=m;i++){
+            for(int j=0;j<=n;j++){
+                if(i==0 || j==0){
+                    arr[i][j]=0;
+                }else if(i==1 && j==1){
+                    arr[i][j]=1;
+                }
+                else{
+                    arr[i][j]=arr[i-1][j]+arr[i][j-1];
+                }
+            }
+        }
+        return arr[m][n];
     }
 }
