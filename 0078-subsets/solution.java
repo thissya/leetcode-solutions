@@ -1,40 +1,47 @@
 class Solution {
+    // construct and view tree how it works
+    List<List<Integer>> res = new ArrayList<>();
+    public void dfs(int[] nums,int i,int n,List<Integer> arr){
+        if(i>=n){
+            res.add(arr);
+            return;
+        }
+        List<Integer> newarr = new ArrayList<>(arr);
+        newarr.add(nums[i]);
+        dfs(nums,i+1,n,newarr);
+        dfs(nums,i+1,n,arr);
+    }
+
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> arr= new ArrayList<>();
-        int n=nums.length;
-        int pow=1<<n;
+        int n = nums.length;
+        List<Integer> arr = new ArrayList<>();
+        dfs(nums,0,n,arr);
+        return res;
+    }
+
+}
+/*
+    public List<List<Integer>> subsets(int[] nums) {
+        // bitwise method 
+        //  001 -1
+        //  010 -2  011-[2,3]
+        //  100 -3
+        //  101 -[1,3] 110 -[1,2]    
+        
+        int n = nums.length;
+        int pow = 1<<n;
+        List<List<Integer>> res = new ArrayList<>();
         for(int i=0;i<pow;i++){
             List<Integer> temp = new ArrayList<>();
             for(int j=0;j<n;j++){
-                if((i&(1<<j))!=0){
+                if((i&(1<<j)) !=0){
                     temp.add(nums[j]);
                 }
+                cur=cur>>1;
             }
-            arr.add(temp);
-        }
-        return arr;
-    }
-}
-
-/*
-    List<List<Integer>> res = new ArrayList<>();
-    int[] nums;
-    public List<List<Integer>> subsets(int[] nums) {
-       this.nums=nums;
-       recursion(new ArrayList<>(),0);
-       return res;
-    }
-
-    private void recursion(List<Integer> temp,int index){
-        if(index>nums.length-1){
             res.add(temp);
-            return;
         }
-
-        List<Integer> newl= new ArrayList<>(temp);
-        newl.add(nums[index]);
-        recursion(newl,index+1);
-        recursion(temp,index+1);
-
+        return res;
     }
+
 */
