@@ -1,30 +1,17 @@
 class Solution {
-    public int majorityElement(int[] nums) 
-    {
-        /*
-        HashMap<Integer,Integer> map= new HashMap<>();  
-        for(int i:nums)
-        {
-            if(map.containsKey(i))
-            {
-                map.put(i,map.get(i)+1);
-            }
-            else{
-                map.put(i,1);
-            }
-        } 
-        int res=0;
-        for(int key:map.keySet())
-        {
-            if(map.get(key) > (nums.length/2))
-            {
-                res=key;
+    public int majorityElement(int[] nums) {
+        // moore's Algorithm possible wheneven nums is greater than n/2 times;
+
+        int count = 1;
+        int val=nums[0];
+        for(int i=1;i<nums.length;i++){
+            if(count==0){
+                count=1;
+                val=nums[i];
+            }else{
+                count+=(val==nums[i])?1:-1;
             }
         }
-        return res;
-        */
-        Arrays.sort(nums);
-        int n=nums.length;
-        return nums[n/2];
+        return val;
     }
 }
