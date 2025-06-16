@@ -1,29 +1,13 @@
-class Solution 
-{
-    public int findDuplicate(int[] nums) 
-    {
-        Arrays.sort(nums);
-        for(int i=1;i<nums.length;i++)
-        {
-            if(nums[i]==nums[i-1])
-            {
-                return nums[i];
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        for(int i=0;i<n;i++){
+            int ind=Math.abs(nums[i]);
+            if(nums[ind]<0){
+                return ind;
             }
-        }        
-        return 0;
+            nums[ind]=-1*nums[ind];
+        }
+        return -1;
     }
 }
-/*
-int[] arr= new int[nums.length+1];
-        int ans=0;
-        for(int i=0;i<nums.length;i++)
-        {
-            arr[nums[i]]++;
-            if(arr[nums[i]]==2)
-            {
-                ans=nums[i];
-            }
-        }
-        return ans;
-*/
-
