@@ -10,28 +10,26 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
-        ListNode slow=head;
-        ListNode fast=head;
-
+        ListNode slow = head;
+        ListNode fast = head;
         while(fast!=null && fast.next!=null){
             slow=slow.next;
             fast=fast.next.next;
         }
-
         ListNode first = head;
-        ListNode sec=reverse(slow);
-        int max=0;
+        ListNode sec = reverse(slow);
+        int sum =0;
         while(sec!=null){
-            int sum =first.val+sec.val;
-            max=Math.max(max,sum);
+            int val = first.val+sec.val;
+            sum=Math.max(val,sum);
             first=first.next;
-            sec=sec.next;            
+            sec=sec.next;
         }
-        return max;
+        return sum ;
     }
     public ListNode reverse(ListNode head){
-        ListNode prev=null;
-        ListNode cur = head;
+        ListNode prev= null;
+        ListNode cur=head;
         while(cur!=null){
             ListNode newnode = cur.next;
             cur.next=prev;
