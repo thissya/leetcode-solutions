@@ -14,21 +14,21 @@
  * }
  */
 class Solution {
-    public int find(TreeNode root){
-        if(root==null){
+    public static int recur(TreeNode root){
+        if(root == null){
             return 0;
         }
-        return 1+Math.max(find(root.left),find(root.right));
+        return 1+Math.max(recur(root.left),recur(root.right));
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        Queue<TreeNode> que= new LinkedList<>();
-        que.add(root);
-        int ans=0;
-        while(!que.isEmpty()){
-            TreeNode cur=que.remove();
-            ans=Math.max(ans,find(cur.left)+find(cur.right));
-            if(cur.left!=null)que.add(cur.left);
-            if(cur.right!=null)que.add(cur.right);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int ans = 0;
+        while(!q.isEmpty()){
+            TreeNode cur = q.poll();
+            ans=Math.max(ans,recur(cur.left)+recur(cur.right));
+            if(cur.left!=null)q.add(cur.left);
+            if(cur.right!=null)q.add(cur.right);
         }
         return ans;
     }
