@@ -9,53 +9,46 @@
  * }
  */
 class Solution {
+    public ListNode head1=null;
+    public ListNode cur1=null;
     public ListNode reverseKGroup(ListNode head, int k) {
-        Stack<Integer> stk = new Stack<>();
-
-        ListNode head2 = null;
-        ListNode cur2 = null;
-
-        while (head != null) {
-            while (stk.size() != k && head != null) {
-                int temp = head.val;
-                head = head.next;
-                stk.push(temp);
+        Stack<ListNode> stk = new Stack<>();
+        ListNode cur=head;
+        while(cur!=null){
+            while(stk.size()!=k && cur!=null){
+                ListNode newnode = cur;
+                cur=cur.next;
+                newnode.next=null;
+                stk.push(newnode);
             }
-            if (stk.size() == k) {
-                while (!stk.isEmpty()) {
-                    int val = stk.pop();
-                    ListNode newnode = new ListNode(val);
-                    if (head2 == null) {
-                        head2 = newnode;
-                        cur2 = newnode;
-                    } else {
-                        cur2.next = newnode;
-                        cur2 = newnode;
+            
+            if(stk.size()==k){
+                while(!stk.isEmpty()){
+                    if(head1==null){
+                        head1=stk.pop();
+                        cur1=head1;
+                    }else{
+                        cur1.next=stk.pop();
+                        cur1=cur1.next;
                     }
                 }
-
-            } else {
-                while (!stk.isEmpty() && stk.size() < k) {
-                    Stack<Integer> stk2 = new Stack<>();
-                    while (!stk.isEmpty()) {
-                        stk2.push(stk.pop());
+                
+            }else{
+                Stack<ListNode> stk2= new Stack<>();
+                while(!stk.isEmpty()){
+                    stk2.push(stk.pop());
+                }
+                while(!stk2.isEmpty()){
+                    if(head1==null){
+                        head1=stk2.pop();
+                        cur1=head1;
+                    }else{
+                        cur1.next=stk2.pop();
+                        cur1=cur1.next;
                     }
-
-                    while (!stk2.isEmpty()) {
-                        int val = stk2.pop();
-                        ListNode newnode = new ListNode(val);
-                        if (head2 == null) {
-                            head2 = newnode;
-                            cur2 = newnode;
-                        } else {
-                            cur2.next = newnode;
-                            cur2 = newnode;
-                        }
-                    }
-
                 }
             }
         }
-        return head2;
+        return head1;
     }
 }
