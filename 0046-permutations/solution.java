@@ -1,21 +1,20 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> arr = new ArrayList<>();
-        recur(res,arr,nums);
+        bt(nums,new ArrayList<>(),res);
         return res;
     }
-    public static void recur(List<List<Integer>> res,List<Integer> arr,int[] nums){
-        if(arr.size()==nums.length){
-            res.add(new ArrayList<>(arr));
+    public void bt(int[] nums,List<Integer> cur,List<List<Integer>> res){
+        if(cur.size()==nums.length){
+            res.add(new ArrayList<>(cur));
             return ;
         }
 
         for(int i=0;i<nums.length;i++){
-            if(arr.contains(nums[i]))continue;
-            arr.add(nums[i]);
-            recur(res,arr,nums);
-            arr.remove(arr.size()-1);
+            if(cur.contains(nums[i]))continue;
+            cur.add(nums[i]);
+            bt(nums,cur,res);
+            cur.remove(cur.size()-1);
         }
     }
 }
