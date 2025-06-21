@@ -1,21 +1,20 @@
 class Solution {
-    public int[] nextGreaterElements(int[] arr) {
-        int[] nums = new int[2*arr.length];
-        int n=arr.length;
-        for(int i=0;i<n;i++){
-            nums[i]=arr[i];
-            nums[i+n]=arr[i];
+    public int[] nextGreaterElements(int[] nums) {
+        int[] res = new int[nums.length];
+        Stack<Integer> stk = new Stack<>();
+        for(int i=nums.length-1;i>=0;i--){
+            stk.push(nums[i]);
         }
-
-        int[] res= new int[arr.length];
-        for (int i = 0; i < n; i++) {
-            res[i]=-1;
-            for(int j=i+1;j<n*2;j++){
-                if(arr[i]<nums[j]){
-                    res[i]=nums[j];
-                    break;
-                }
+        for(int i=nums.length-1;i>=0;i--){
+            while(!stk.isEmpty() && stk.peek()<=nums[i]){
+                stk.pop();
             }
+            if(stk.isEmpty()){
+                res[i]=-1;
+            }else{
+                res[i]=stk.peek();
+            }
+            stk.push(nums[i]);
         }
         return res;
     }
