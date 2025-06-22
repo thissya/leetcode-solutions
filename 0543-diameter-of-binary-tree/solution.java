@@ -14,22 +14,27 @@
  * }
  */
 class Solution {
-    public static int recur(TreeNode root){
-        if(root == null){
-            return 0;
-        }
-        return 1+Math.max(recur(root.left),recur(root.right));
-    }
     public int diameterOfBinaryTree(TreeNode root) {
+        int ans =0;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        int ans = 0;
         while(!q.isEmpty()){
-            TreeNode cur = q.poll();
-            ans=Math.max(ans,recur(cur.left)+recur(cur.right));
-            if(cur.left!=null)q.add(cur.left);
-            if(cur.right!=null)q.add(cur.right);
+            int c = q.size();
+            while(c>0){
+                c--;
+                TreeNode cur = q.poll();
+                ans=Math.max(ans,height(cur.left)+height(cur.right));
+                if(cur.left!=null)q.add(cur.left);
+                if(cur.right!=null)q.add(cur.right);
+            }
         }
         return ans;
     }
+    public int height(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        return 1+Math.max(height(root.left),height(root.right));
+    }
+
 }
