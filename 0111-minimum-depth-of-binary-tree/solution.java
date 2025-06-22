@@ -15,23 +15,24 @@
  */
 class Solution {
     public int minDepth(TreeNode root) {
-        Queue<TreeNode> q= new LinkedList<>();
-        int ans=0;
-        if(root==null)return 0;
-        q.add(root);
-        while(!q.isEmpty()){
-            int c=q.size();
-            while(c!=0){
-                TreeNode cur= q.poll();
-                if(cur.left==null && cur.right==null){
-                    return ans+1;
-                }
-                if(cur.left!=null)q.add(cur.left);
-                if(cur.right!=null)q.add(cur.right);
-                c--;
-            }
-            ans++;
+        if(root==null){
+            return 0;
         }
-        return ans;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int res =1;
+        while(!q.isEmpty()){
+            int c= q.size();
+            while(c>0){
+                TreeNode p = q.poll();
+                if(p.left==null && p.right==null)return res;
+                if(p.left!=null)q.add(p.left);
+                if(p.right!=null)q.add(p.right);
+                c--;
+            } 
+            res++;
+        }
+        return res;
     }
+
 }
