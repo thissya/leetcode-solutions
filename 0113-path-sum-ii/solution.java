@@ -14,25 +14,26 @@
  * }
  */
 class Solution {
-    public void recur(List<List<Integer>> res,List<Integer> path,TreeNode root,int sum){
-        if(root == null){
-            return ;
-        }
-        sum-=root.val;
-        path.add(root.val);
-        if(root.left==null && root.right == null && sum==0){
-            res.add(path);
-        }
-        recur(res,new ArrayList<>(path),root.left,sum);
-        recur(res,new ArrayList<>(path),root.right,sum);
-    }
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> res = new ArrayList<>(); 
-        List<Integer> path = new ArrayList<>();
-        if(root == null){
-            return res;
-        }        
-        recur(res,path,root,sum);
+    private List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        dfs(root,targetSum,new ArrayList<>());
         return res;
+    }
+    public void dfs(TreeNode root,int targetSum,List<Integer> cur){
+        if(root==null)return ;
+        
+        cur.add(root.val);
+        targetSum-=root.val;
+        
+        if(root.left==null && root.right==null){
+            if(targetSum==0){
+                res.add(new ArrayList<>(cur));
+            }
+        }
+
+        dfs(root.left,targetSum,cur);
+        dfs(root.right,targetSum,cur);
+        cur.remove(cur.size()-1);
+
     }
 }
