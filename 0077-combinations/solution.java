@@ -1,20 +1,19 @@
 class Solution {
-    public List<List<Integer>> res = new ArrayList<>();
+    List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> combine(int n, int k) {
-        bt(1,n,k,0,new ArrayList<>());
+        bt(1,n,k,new ArrayList<>());
         return res;
     }
-    public void bt(int ind,int n,int k,int len,List<Integer> cur){
-        if(len==k){
+    public void bt(int start,int n,int k,List<Integer> cur){
+        if(cur.size()==k){
             res.add(new ArrayList<>(cur));
-            return;
+            return ;
         }
 
-        for(int i=ind;i<=n;i++){
+        for(int i=start;i<=n;i++){
             cur.add(i);
-            bt(i+1,n,k,len+1,cur);
+            bt(i+1,n,k,cur);
             cur.remove(cur.size()-1);
         }
-
     }
 }
