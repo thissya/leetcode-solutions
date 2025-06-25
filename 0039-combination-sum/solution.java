@@ -1,13 +1,11 @@
 class Solution {
+    List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] can, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        backtrack(0,new ArrayList<>(),target,can,res);
+        bt(0,can,target,new ArrayList<>());
         return res;
     }
-    public void backtrack(int start,List<Integer> cur ,int target,int[] can, List<List<Integer>> res){
-        if(target<0){
-            return ;
-        }
+    public void bt(int start,int[] can,int target, List<Integer> cur){
+        if(target<0)return ;
         if(target==0){
             res.add(new ArrayList<>(cur));
             return ;
@@ -15,7 +13,7 @@ class Solution {
 
         for(int i=start;i<can.length;i++){
             cur.add(can[i]);
-            backtrack(i,cur,target-can[i],can,res);
+            bt(i,can,target-can[i],cur);
             cur.remove(cur.size()-1);
         }
     }
