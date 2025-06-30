@@ -1,21 +1,25 @@
 class Solution {
-    private int n,m;
+    int n,m;
     public int maxAreaOfIsland(int[][] grid) {
-        n=grid.length;
-        m=grid[0].length;
-        int ans=0;
+        n = grid.length;
+        m = grid[0].length;
+        int ans = 0;
+        boolean[][] visit = new boolean[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]>0){
-                    ans=Math.max(ans,traverse(i,j,grid));
-                }
+                if(grid[i][j]==1 && visit[i][j]==false)
+                    ans=Math.max(ans,dfs(i,j,visit,grid));
             }
         }
         return ans;
     }
-    private int traverse(int i,int j,int[][] grid){
-        if(i<0 || j<0 || j>=m || i>=n || grid[i][j]<1)return 0;
-        grid[i][j]=0;
-        return 1+traverse(i-1,j,grid)+traverse(i,j-1,grid)+traverse(i+1,j,grid)+traverse(i,j+1,grid);
-    } 
+
+    public  int dfs(int i,int j,boolean[][] visit,int[][] grid){
+        if(i<0 || j<0 || i>=n || j>=m || grid[i][j]==0 || visit[i][j]){
+            return 0;
+        }
+        visit[i][j]=true;
+        return 1+dfs(i+1,j,visit,grid)+dfs(i-1,j,visit,grid)+dfs(i,j+1,visit,grid)+dfs(i,j-1,visit,grid);
+    }
+
 }
