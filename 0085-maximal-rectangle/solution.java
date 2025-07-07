@@ -1,30 +1,61 @@
 class Solution {
-    public int maximalRectangle(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
-            return 0;
+    public int longestArea(int[] heights){
+        int n = heights.length;
         
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        int[] heights = new int[cols + 1]; // Include an extra element for easier calculation
-        int maxArea = 0;
-        
-        for (char[] row : matrix) {
-            for (int i = 0; i < cols; i++) {
-                heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
+        Stack<Integer> stk = new Stack<>();
+        int[] nsl = new int[n];
+        int[] nsr = new int[n];
+
+        for(int i=0;i<n;i++){
+            while(!stk.isEmpty() && heights[stk.peek()]>=heights[i]){
+                stk.pop();
+            }    
+            if(stk.isEmpty()){
+                nsl[i] = -1;
+            }else{
+                nsl[i]=stk.peek();
             }
-            
-            
-            int n = heights.length; 
-            
-            for (int i = 0; i < n; i++) {
-                for (int j = i, minHeight = Integer.MAX_VALUE; j < n; j++) {
-                    minHeight = Math.min(minHeight, heights[j]);
-                    int area = minHeight * (j - i + 1);
-                    maxArea = Math.max(maxArea, area);
-                }
-            }
+            stk.push(i);
         }
         
-        return maxArea;
+        stk.clear();
+        
+        for(int i=n-1;i>=0;i--){
+            while(!stk.isEmpty() && heights[stk.peek()]>=heights[i]){
+                stk.pop();
+            }
+            if(stk.isEmpty()){
+                nsr[i]=n;
+            }else{
+                nsr[i]=  stk.peek();
+            }
+            stk.push(i);
+        }
+
+        int res=0;
+        
+        for(int i=0;i<n;i++){
+            int width = nsr[i]-nsl[i]-1;
+            int area = width*heights[i];
+            res=Math.max(res,area);
+        }
+
+        return res;
+    }
+
+    public int maximalRectangle(char[][] matrix) {
+        int[] heights= new int[matrix[0].length];
+        int res=0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]=='1'){
+                    heights[j]+=1;
+                }else{
+                    heights[j]=0;
+                }
+            }
+            res = Math.max(res,longestArea(heights));
+        }    
+        return res;
     }
 }
